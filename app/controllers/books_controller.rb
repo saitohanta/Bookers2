@@ -26,7 +26,7 @@ class BooksController < ApplicationController
   def show
     @books = Book.find(params[:id])
     @book = Book.new
-    @user = current_user
+    @user = @books.user
     @users = Book.all
   end
 
@@ -59,7 +59,7 @@ class BooksController < ApplicationController
   def correct_user
     @book = Book.find(params[:id])
     @user = @book.user
-    redirect_to(book_path) unless @user == current_user
+    redirect_to(books_path) unless @user == current_user
   end
 
 end

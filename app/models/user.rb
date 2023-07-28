@@ -11,7 +11,6 @@ class User < ApplicationRecord
            validates :name, length: { in: 2..20 }, uniqueness: true
            validates :introduction, length: { maximum: 50 }
 
-
   GUEST_USER_EMAIL = "guest@example.com"
 
     def self.guest

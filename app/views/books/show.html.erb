@@ -63,12 +63,21 @@
         <% end %>
       </td>
       <td><%= @books.body %></td>
-      <% if @books.user == current_user %>
-      <td><%= link_to "Edit", edit_book_path(@books.id), class:"btn btn-sm btn-success" %></td>
       <td>
-        <%= link_to "Destroy", book_path(@books.id), method: :delete, "data-confirm" => "本当に消しますか？", class:"btn btn-sm btn-danger" %>
-      </td>
+        <% if @book.favorited_by?(current_user) %>
+          <%= link_to book_favorites_path(book.id), method: :delete do %>
+            ♥<%= @book.favorites.count %> いいね
+          <% end %>
+        <% else %>
+          <%= link_to book_favorites_path(@books.id), method: :post do %>
+            ♡<%= @books.favorites.count %> いいね
+          <% end %>
         <% end %>
+      </td>
+      <% if @books.user == current_user %>
+        <td><%= link_to "Edit", edit_book_path(@books.id), class:"btn btn-sm btn-success" %></td>
+        <td><%= link_to "Destroy", book_path(@books.id), method: :delete, "data-confirm" => "本当に消しますか？", class:"btn btn-sm btn-danger" %></td>
+      <% end %>
     </tr>
   </tbody>
 </table>
